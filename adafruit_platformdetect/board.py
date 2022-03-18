@@ -132,6 +132,8 @@ class Board:
             board_id = self._armbian_id() or self._allwinner_variants_id()
         elif chip_id == chips.A33:
             board_id = self._clockwork_pi_id()
+        elif chip_id == chips.RK3568:
+            board_id = self._rock_pi_id()
         elif chip_id == chips.RK3308:
             board_id = self._rock_pi_id()
         elif chip_id == chips.RK3399:
@@ -427,6 +429,8 @@ class Board:
         """Check what type of Rock Pi board."""
         board_value = self.detector.get_device_model()
         board = None
+        if board_value and "ROCK 3" in board_value:
+            board = boards.ROCK_PI_3
         if board_value and "ROCK Pi S" in board_value:
             board = boards.ROCK_PI_S
         if board_value and "ROCK PI 4" in board_value.upper():
